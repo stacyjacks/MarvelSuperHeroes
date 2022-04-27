@@ -4,4 +4,5 @@
     <string name="empty_state">Something went wrong. Please check your internet connection and swipe to refresh.</string>
     <string name="error_content_description">Error</string>
     <string name="no_description">No description.</string>
+    <string name="read_more">Read more</string>
 </resources>
