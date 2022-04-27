@@ -1,20 +1,20 @@
 package kurmakaeva.anastasia.marvelsuperheroes.ui.detail
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kurmakaeva.anastasia.marvelsuperheroes.entities.Hero
+import kurmakaeva.anastasia.marvelsuperheroes.logger.Logger
 import kurmakaeva.anastasia.marvelsuperheroes.repository.HeroRepository
 
 class HeroViewModel @AssistedInject constructor(
     private val repository: HeroRepository,
+    private val logger: Logger,
     @Assisted private val assistedInjection: HeroVMAssistedInjection
 ): ViewModel() {
 
@@ -32,7 +32,7 @@ class HeroViewModel @AssistedInject constructor(
             }.onSuccess { hero ->
                 _hero.value = HeroViewState.Success(hero = hero)
             }.onFailure { e ->
-                //logger.log(e)
+                logger.log(e)
                 _hero.value = HeroViewState.Error
             }
         }
