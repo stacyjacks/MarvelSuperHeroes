@@ -58,9 +58,6 @@ dependencies {
     // UI
 
     implementation "com.google.android.material:material:$material_version"
-    implementation "androidx.constraintlayout:constraintlayout:$cons_layout_version"
-    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipe_refresh_version"
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
 
     // Compose UI
@@ -73,7 +70,7 @@ dependencies {
 
     implementation 'androidx.paging:paging-compose:1.0.0-alpha14'
 
-    implementation "com.github.skydoves:landscapist-glide:$glide_accompanist_version"
+    implementation "com.github.skydoves:landscapist-glide:$glide_landscapist_version"
 
     implementation "com.google.accompanist:accompanist-swiperefresh:$swipe_accompanist_version"
 
