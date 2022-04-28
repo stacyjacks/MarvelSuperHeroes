@@ -26,7 +26,7 @@ object NetworkModule {
         val client = OkHttpClient.Builder()
             .addInterceptor { chain ->
                 val newRequest = chain.request()
-                val newRequestHttpUrl = newRequest.url()
+                val newRequestHttpUrl = newRequest.url
                 val timestamp = (Calendar.getInstance(
                     TimeZone.getTimeZone(TIMEZONE)).timeInMillis / 1000L).toString()
                 val url = newRequestHttpUrl.newBuilder()

@@ -70,7 +70,7 @@ dependencies {
 
     implementation 'androidx.paging:paging-compose:1.0.0-alpha14'
 
-    implementation "com.github.skydoves:landscapist-glide:$glide_landscapist_version"
+    implementation "io.coil-kt:coil-compose:$coil_version"
 
     implementation "com.google.accompanist:accompanist-swiperefresh:$swipe_accompanist_version"
 

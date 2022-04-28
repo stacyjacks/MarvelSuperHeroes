@@ -26,6 +26,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
+import coil.compose.AsyncImage
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.skydoves.landscapist.glide.GlideImage
@@ -62,7 +63,7 @@ class SuperHeroesFragment : Fragment() {
 
                                 LaunchedEffect(isRefreshing) {
                                     if (isRefreshing) {
-                                        delay(2000)
+                                        delay(1000)
                                         isRefreshing = false
                                     }
                                 }
@@ -143,10 +144,12 @@ class SuperHeroesFragment : Fragment() {
                 .height(200.dp),
             contentAlignment = Alignment.BottomStart
         ) {
-            GlideImage(
-                imageModel = imageUrl,
-                contentScale = ContentScale.Crop,
-                placeHolder = painterResource(id = R.drawable.marvel_bw)
+            AsyncImage(
+                model = imageUrl,
+                contentDescription = hero.name,
+                modifier = Modifier.fillMaxWidth(),
+                placeholder = painterResource(id = R.drawable.marvel_bw),
+                contentScale = ContentScale.Crop
             )
             Box(
                 modifier = Modifier

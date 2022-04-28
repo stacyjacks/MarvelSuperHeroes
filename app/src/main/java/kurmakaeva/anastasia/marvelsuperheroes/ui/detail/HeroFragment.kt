@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -13,6 +14,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -21,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import coil.compose.AsyncImage
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.skydoves.landscapist.glide.GlideImage
@@ -113,9 +116,12 @@ class HeroFragment : Fragment() {
     @Composable
     fun HeroDetailView(imageUrl: String, hero: Hero) {
         Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-            GlideImage(
-                imageModel = imageUrl,
-                placeHolder = painterResource(id = R.drawable.marvel_bw)
+            AsyncImage(
+                model = imageUrl,
+                contentDescription = hero.name,
+                modifier = Modifier.fillMaxWidth(),
+                placeholder = painterResource(id = R.drawable.marvel_bw),
+                contentScale = ContentScale.Crop
             )
 
             Row(modifier = Modifier.padding(8.dp)) {
