@@ -9,7 +9,7 @@ Go [https://developer.marvel.com/](https://developer.marvel.com/) > Sign in / Jo
 
 ### Android Studio:
 
-Clone the repo and open the project in Android Studio. Go to ApiConstants.kt and add your public and private keys.
+Clone the repo and open the project in Android Studio. Go to ```ApiConstants.kt``` and add your public and private keys.
 
 ### Android device:
 
@@ -43,9 +43,8 @@ __Third-party libraries:__
 
 This project displays a list of __Marvel©__ characters in a 2-column grid and in alphabetical order, with an infinite scroll implemented through the __Paging 3__ library for a more comfortable browsing experience.
 
-The user can then navigate to a detail fragment, which displays some additional information about each individual character of the __Marvel Universe__.
+The user can then navigate to a detail fragment, which displays some additional information about each individual character of the __Marvel Universe__. Due to the limited information provided by the API, a button with a link is included, allowing the user to navigate to a URL opening in the Internet browser via an intent, where they can read more about each character on the [Marvel.com](https://www.marvel.com/) website.
 
 To retrieve the data I used Retrofit and the Marvel API (https://developer.marvel.com/docs), where the endpoint ```/v1/public/characters``` fetches all the characters from the Marvel Universe, and  ```/v1/public/characters/{characterId}``` retrieves an individual character based on their assigned ID.
 To load the images retrieved from the API I used the __Landscapist__ library, which is an image loading library specially developed for __Jetpack Compose__.
 
-Due to the limited information provided by the API, a button with a link is included, allowing the user to navigate to a URL, where they can read more about each character on the [Marvel.com](https://www.marvel.com/) website.
