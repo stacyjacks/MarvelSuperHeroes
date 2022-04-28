@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -26,7 +25,6 @@ import androidx.navigation.fragment.navArgs
 import coil.compose.AsyncImage
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-import com.skydoves.landscapist.glide.GlideImage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kurmakaeva.anastasia.marvelsuperheroes.R
@@ -34,7 +32,6 @@ import kurmakaeva.anastasia.marvelsuperheroes.entities.Hero
 import kurmakaeva.anastasia.marvelsuperheroes.ui.AppScaffold
 import kurmakaeva.anastasia.marvelsuperheroes.ui.EmptyState
 import kurmakaeva.anastasia.marvelsuperheroes.ui.LoadingIndicator
-import kurmakaeva.anastasia.marvelsuperheroes.ui.RetryButton
 import kurmakaeva.anastasia.marvelsuperheroes.ui.theme.RedPrimary
 import kurmakaeva.anastasia.marvelsuperheroes.ui.theme.White
 import javax.inject.Inject
