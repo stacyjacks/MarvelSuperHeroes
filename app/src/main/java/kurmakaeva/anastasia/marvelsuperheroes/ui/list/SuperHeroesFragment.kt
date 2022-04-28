@@ -8,9 +8,10 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.rememberLazyGridState
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -23,12 +24,19 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.skydoves.landscapist.glide.GlideImage
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kurmakaeva.anastasia.marvelsuperheroes.R
 import kurmakaeva.anastasia.marvelsuperheroes.entities.Hero
 import kurmakaeva.anastasia.marvelsuperheroes.ui.AppScaffold
+import kurmakaeva.anastasia.marvelsuperheroes.ui.EmptyState
+import kurmakaeva.anastasia.marvelsuperheroes.ui.LoadingIndicator
+import kurmakaeva.anastasia.marvelsuperheroes.ui.RetryButton
 import kurmakaeva.anastasia.marvelsuperheroes.ui.theme.*
 
 @AndroidEntryPoint
@@ -47,13 +55,57 @@ class SuperHeroesFragment : Fragment() {
                     AppScaffold(
                         content = {
                             Surface(
-                                modifier = Modifier.background(color = RedPrimary)
+                                modifier = Modifier.background(color = RedPrimary),
                             ) {
                                 val heroes = viewModel.superHeroes.collectAsLazyPagingItems()
+                                var isRefreshing by remember { mutableStateOf(false) }
 
-                                LazyVerticalGrid(cells = GridCells.Fixed(2)) {
-                                    items(heroes.itemCount) { index ->
-                                        heroes[index]?.let { HeroItem(it) }
+                                LaunchedEffect(isRefreshing) {
+                                    if (isRefreshing) {
+                                        delay(2000)
+                                        isRefreshing = false
+                                    }
+                                }
+
+                                SwipeRefresh(
+                                    state = rememberSwipeRefreshState(isRefreshing = isRefreshing),
+                                    onRefresh = {
+                                        isRefreshing = true
+                                        heroes.retry()
+                                    },
+                                ) {
+                                    when (heroes.loadState.refresh) {
+                                        is LoadState.NotLoading -> {
+                                            LoadingIndicator()
+                                        }
+                                        LoadState.Loading -> {
+                                            LoadingIndicator()
+                                        }
+                                        is LoadState.Error -> {
+                                            EmptyState()
+                                        }
+                                    }
+
+                                    LazyVerticalGrid(
+                                        cells = GridCells.Fixed(2),
+                                        state = rememberLazyGridState()
+                                    ) {
+                                        items(heroes.itemCount) { index ->
+                                            heroes[index]?.let { HeroItem(it) }
+                                        }
+
+                                        when (heroes.loadState.append) {
+                                            LoadState.Loading -> {
+                                                item { LoadingIndicator() }
+                                                item { LoadingIndicator() }
+                                            }
+                                            is LoadState.Error -> {
+                                                item { RetryButton(heroes = heroes) }
+                                            }
+                                            is LoadState.NotLoading -> {
+                                                // do nothing
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -87,17 +139,18 @@ class SuperHeroesFragment : Fragment() {
                             )
                     )
                 }
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .height(200.dp),
             contentAlignment = Alignment.BottomStart
         ) {
             GlideImage(
                 imageModel = imageUrl,
                 contentScale = ContentScale.Crop,
-                placeHolder = painterResource(id = R.drawable.ic_error)
+                placeHolder = painterResource(id = R.drawable.marvel_bw)
             )
             Box(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxWidth()
                     .background(
                         brush = Brush.verticalGradient(
                             colors = listOf(

@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">MarvelSuperHeroes</string>
     <string name="main_screen_title">Marvel Super Heroes</string>
-    <string name="empty_state">Something went wrong. Please check your internet connection and swipe to refresh.</string>
+    <string name="empty_state">Something went wrong. Please check your internet connection and pull to refresh to try again.</string>
     <string name="error_content_description">Error</string>
     <string name="no_description">No description.</string>
     <string name="read_more">Read more</string>
+    <string name="retry_button">Retry</string>
 </resources>

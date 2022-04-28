@@ -88,7 +88,7 @@ class HeroFragment : Fragment() {
         Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
             GlideImage(
                 imageModel = imageUrl,
-                placeHolder = painterResource(id = R.drawable.ic_error)
+                placeHolder = painterResource(id = R.drawable.marvel_bw)
             )
 
             Row(modifier = Modifier.padding(8.dp)) {
