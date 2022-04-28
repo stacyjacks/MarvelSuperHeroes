@@ -19,8 +19,8 @@ import org.mockito.junit.MockitoJUnitRunner
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
-class HeroesListRepositoryTest {
-    private lateinit var repository: HeroesListRepository
+class HeroRepositoryTest {
+    private lateinit var repository: HeroRepository
 
     @Mock
     private val service = Mockito.mock(MarvelService::class.java)
@@ -37,7 +37,7 @@ class HeroesListRepositoryTest {
 
     @Test
     fun heroesListRepository_dataReturningOk() = runTest {
-        repository = HeroesListRepository(service)
+        repository = HeroRepository(service)
 
         val listDTO = emptyList<HeroDTO>()
         val resultsDTO = ResultsDTO(results = listDTO)

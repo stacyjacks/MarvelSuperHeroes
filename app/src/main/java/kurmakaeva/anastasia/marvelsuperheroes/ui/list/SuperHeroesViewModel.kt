@@ -10,11 +10,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kurmakaeva.anastasia.marvelsuperheroes.entities.Hero
 import kurmakaeva.anastasia.marvelsuperheroes.paging.HeroPagingSource
-import kurmakaeva.anastasia.marvelsuperheroes.repository.HeroesListRepository
+import kurmakaeva.anastasia.marvelsuperheroes.repository.HeroRepository
 import javax.inject.Inject
 
 @HiltViewModel
-class SuperHeroesViewModel @Inject constructor(private val repository: HeroesListRepository): ViewModel() {
+class SuperHeroesViewModel @Inject constructor(private val repository: HeroRepository): ViewModel() {
     val superHeroes: Flow<PagingData<Hero>> =
         Pager(PagingConfig(pageSize = 10)) { HeroPagingSource(repository) }
         .flow

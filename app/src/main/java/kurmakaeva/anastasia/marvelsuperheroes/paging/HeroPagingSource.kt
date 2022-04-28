@@ -3,10 +3,10 @@ package kurmakaeva.anastasia.marvelsuperheroes.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import kurmakaeva.anastasia.marvelsuperheroes.entities.Hero
-import kurmakaeva.anastasia.marvelsuperheroes.repository.HeroesListRepository
+import kurmakaeva.anastasia.marvelsuperheroes.repository.HeroRepository
 import java.lang.Exception
 
-class HeroPagingSource(private val repository: HeroesListRepository): PagingSource<Int, Hero>() {
+class HeroPagingSource(private val repository: HeroRepository): PagingSource<Int, Hero>() {
     private var offset = 0
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Hero> {
@@ -22,7 +22,5 @@ class HeroPagingSource(private val repository: HeroesListRepository): PagingSour
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, Hero>): Int? {
-        TODO("Not yet implemented")
-    }
+    override fun getRefreshKey(state: PagingState<Int, Hero>): Int? = state.anchorPosition
 }

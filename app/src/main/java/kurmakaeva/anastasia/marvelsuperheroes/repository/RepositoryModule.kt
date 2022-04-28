@@ -13,9 +13,5 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideHeroesListRepository(service: MarvelService) = HeroesListRepository(service)
-
-    @Singleton
-    @Provides
     fun provideHeroRepository(service: MarvelService) = HeroRepository(service)
 }
