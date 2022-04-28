@@ -25,6 +25,10 @@ class HeroViewModel @AssistedInject constructor(
         getHero()
     }
 
+    fun retry() {
+        getHero()
+    }
+
     private fun getHero() {
         viewModelScope.launch {
             runCatching {
