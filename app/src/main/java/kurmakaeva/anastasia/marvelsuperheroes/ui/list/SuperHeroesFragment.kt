@@ -76,7 +76,7 @@ class SuperHeroesFragment : Fragment() {
                                 ) {
                                     when (heroes.loadState.refresh) {
                                         is LoadState.NotLoading -> {
-                                            LoadingIndicator()
+                                            // do nothing
                                         }
                                         LoadState.Loading -> {
                                             LoadingIndicator()
