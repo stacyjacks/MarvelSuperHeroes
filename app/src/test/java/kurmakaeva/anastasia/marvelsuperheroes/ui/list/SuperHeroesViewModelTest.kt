@@ -9,7 +9,7 @@ import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import kurmakaeva.anastasia.marvelsuperheroes.entities.Hero
-import kurmakaeva.anastasia.marvelsuperheroes.network.MarvelService
+import kurmakaeva.anastasia.data.network.MarvelService
 import kurmakaeva.anastasia.marvelsuperheroes.paging.FakeHeroFactory
 import kurmakaeva.anastasia.marvelsuperheroes.repository.HeroRepository
 import org.junit.After

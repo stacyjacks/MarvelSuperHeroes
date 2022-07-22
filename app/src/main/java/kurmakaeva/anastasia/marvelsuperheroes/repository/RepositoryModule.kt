@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kurmakaeva.anastasia.marvelsuperheroes.network.MarvelService
+import kurmakaeva.anastasia.data.network.MarvelService
 import javax.inject.Singleton
 
 @Module

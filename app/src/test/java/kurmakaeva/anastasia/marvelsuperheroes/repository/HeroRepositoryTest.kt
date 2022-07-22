@@ -2,10 +2,10 @@ package kurmakaeva.anastasia.marvelsuperheroes.repository
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import kurmakaeva.anastasia.marvelsuperheroes.network.MarvelService
-import kurmakaeva.anastasia.marvelsuperheroes.network.dtos.HeroDTO
-import kurmakaeva.anastasia.marvelsuperheroes.network.dtos.ResponseDTO
-import kurmakaeva.anastasia.marvelsuperheroes.network.dtos.ResultsDTO
+import kurmakaeva.anastasia.data.network.MarvelService
+import kurmakaeva.anastasia.data.network.dtos.HeroDTO
+import kurmakaeva.anastasia.data.network.dtos.ResponseDTO
+import kurmakaeva.anastasia.data.network.dtos.ResultsDTO
 import org.junit.After
 import org.junit.Before
 import org.junit.Test

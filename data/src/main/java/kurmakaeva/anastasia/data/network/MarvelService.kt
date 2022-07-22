@@ -1,7 +1,7 @@
-package kurmakaeva.anastasia.marvelsuperheroes.network
+package kurmakaeva.anastasia.data.network
 
-import kurmakaeva.anastasia.marvelsuperheroes.network.dtos.HeroDTO
-import kurmakaeva.anastasia.marvelsuperheroes.network.dtos.ResponseDTO
+import kurmakaeva.anastasia.data.network.dtos.HeroDTO
+import kurmakaeva.anastasia.data.network.dtos.ResponseDTO
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

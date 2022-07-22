@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyVerticalGrid
-import androidx.compose.foundation.lazy.rememberLazyGridState
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
@@ -87,7 +87,7 @@ class SuperHeroesFragment : Fragment() {
                                     }
 
                                     LazyVerticalGrid(
-                                        cells = GridCells.Fixed(2),
+                                        columns = GridCells.Fixed(2),
                                         state = rememberLazyGridState()
                                     ) {
                                         items(heroes.itemCount) { index ->

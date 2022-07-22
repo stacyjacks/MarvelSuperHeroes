@@ -1,4 +1,4 @@
-package kurmakaeva.anastasia.marvelsuperheroes.network
+package kurmakaeva.anastasia.data.network
 
 import java.security.MessageDigest
 

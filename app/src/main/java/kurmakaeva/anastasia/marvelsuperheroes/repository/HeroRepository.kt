@@ -2,7 +2,7 @@ package kurmakaeva.anastasia.marvelsuperheroes.repository
 
 import kurmakaeva.anastasia.marvelsuperheroes.entities.Hero
 import kurmakaeva.anastasia.marvelsuperheroes.entities.HeroUrl
-import kurmakaeva.anastasia.marvelsuperheroes.network.MarvelService
+import kurmakaeva.anastasia.data.network.MarvelService
 
 class HeroRepository(private val service: MarvelService) {
     suspend fun loadCharacters(loadSize: Int, key: Int?): List<Hero> {

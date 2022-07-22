@@ -1,4 +1,4 @@
-package kurmakaeva.anastasia.marvelsuperheroes.network.dtos
+package kurmakaeva.anastasia.data.network.dtos
 
 data class ResponseDTO(
     val data: ResultsDTO
