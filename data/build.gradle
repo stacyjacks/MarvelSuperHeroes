@@ -32,7 +32,6 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.8.0'
 
     // Retrofit
 
@@ -41,7 +40,6 @@ dependencies {
     implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
 
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
-
 
     // DI
 
