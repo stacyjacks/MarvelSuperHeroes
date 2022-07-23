@@ -8,3 +8,6 @@ dependencyResolutionManagement {
 rootProject.name = "MarvelSuperHeroes"
 include ':app'
 include ':data'
+include ':presentation'
+include ':domain'
+include ':common'

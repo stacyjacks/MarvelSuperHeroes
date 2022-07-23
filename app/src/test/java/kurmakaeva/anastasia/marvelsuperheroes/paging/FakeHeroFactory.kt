@@ -1,6 +1,6 @@
 package kurmakaeva.anastasia.marvelsuperheroes.paging
 
-import kurmakaeva.anastasia.marvelsuperheroes.entities.Hero
+import kurmakaeva.anastasia.domain.repository.entities.Hero
 import java.util.concurrent.atomic.AtomicInteger
 
 class FakeHeroFactory {
