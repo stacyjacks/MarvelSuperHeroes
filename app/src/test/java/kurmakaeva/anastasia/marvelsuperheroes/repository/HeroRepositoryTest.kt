@@ -6,6 +6,7 @@ import kurmakaeva.anastasia.data.network.MarvelService
 import kurmakaeva.anastasia.data.network.dtos.HeroDTO
 import kurmakaeva.anastasia.data.network.dtos.ResponseDTO
 import kurmakaeva.anastasia.data.network.dtos.ResultsDTO
+import kurmakaeva.anastasia.data.repository.HeroRepository
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -20,7 +21,7 @@ import org.mockito.junit.MockitoJUnitRunner
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class HeroRepositoryTest {
-    private lateinit var repository: kurmakaeva.anastasia.domain.repository.HeroRepository
+    private lateinit var repository: HeroRepository
 
     @Mock
     private val service = Mockito.mock(MarvelService::class.java)
@@ -37,7 +38,7 @@ class HeroRepositoryTest {
 
     @Test
     fun heroesListRepository_dataReturningOk() = runTest {
-        repository = kurmakaeva.anastasia.domain.repository.HeroRepository(service)
+        repository = HeroRepository(service)
 
         val listDTO = emptyList<HeroDTO>()
         val resultsDTO = ResultsDTO(results = listDTO)

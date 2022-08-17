@@ -1,4 +1,4 @@
-package kurmakaeva.anastasia.domain.repository.entities
+package kurmakaeva.anastasia.domain.entities
 
 data class Hero(
     val id: Int = 0,

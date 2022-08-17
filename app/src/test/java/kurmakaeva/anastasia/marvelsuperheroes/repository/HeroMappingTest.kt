@@ -3,9 +3,9 @@ package kurmakaeva.anastasia.marvelsuperheroes.repository
 import kurmakaeva.anastasia.data.network.dtos.HeroDTO
 import kurmakaeva.anastasia.data.network.dtos.HeroThumbnailDTO
 import kurmakaeva.anastasia.data.network.dtos.HeroUrlDTO
-import kurmakaeva.anastasia.domain.repository.entities.Hero
-import kurmakaeva.anastasia.domain.repository.entities.HeroUrl
-import kurmakaeva.anastasia.domain.repository.toHero
+import kurmakaeva.anastasia.domain.entities.Hero
+import kurmakaeva.anastasia.domain.entities.HeroUrl
+import kurmakaeva.anastasia.data.repository.toHero
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

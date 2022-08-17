@@ -9,11 +9,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kurmakaeva.anastasia.common.logger.Logger
-import kurmakaeva.anastasia.domain.repository.HeroRepository
-import kurmakaeva.anastasia.domain.repository.entities.Hero
+import kurmakaeva.anastasia.domain.HeroRepositoryInterface
+import kurmakaeva.anastasia.domain.entities.Hero
 
 class HeroViewModel @AssistedInject constructor(
-    private val repository: HeroRepository,
+    private val repository: HeroRepositoryInterface,
     private val logger: Logger,
     @Assisted private val assistedInjection: HeroVMAssistedInjection
 ): ViewModel() {

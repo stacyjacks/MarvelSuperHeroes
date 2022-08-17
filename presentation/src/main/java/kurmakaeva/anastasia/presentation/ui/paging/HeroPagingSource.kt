@@ -2,11 +2,11 @@ package kurmakaeva.anastasia.presentation.ui.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import kurmakaeva.anastasia.domain.repository.HeroRepository
-import kurmakaeva.anastasia.domain.repository.entities.Hero
+import kurmakaeva.anastasia.domain.HeroRepositoryInterface
+import kurmakaeva.anastasia.domain.entities.Hero
 import java.lang.Exception
 
-class HeroPagingSource(private val repository: HeroRepository): PagingSource<Int, Hero>() {
+class HeroPagingSource(private val repository: HeroRepositoryInterface): PagingSource<Int, Hero>() {
     private var offset = 0
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Hero> {

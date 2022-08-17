@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.paging.compose.LazyPagingItems
-import kurmakaeva.anastasia.domain.repository.entities.Hero
+import kurmakaeva.anastasia.domain.entities.Hero
 import kurmakaeva.anastasia.presentation.R
 import kurmakaeva.anastasia.presentation.ui.theme.RedPrimary
 import kurmakaeva.anastasia.presentation.ui.theme.Secondary

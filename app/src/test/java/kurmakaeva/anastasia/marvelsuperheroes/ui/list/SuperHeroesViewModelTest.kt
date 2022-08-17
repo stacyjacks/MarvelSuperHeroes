@@ -8,8 +8,9 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
-import kurmakaeva.anastasia.domain.repository.entities.Hero
+import kurmakaeva.anastasia.domain.entities.Hero
 import kurmakaeva.anastasia.data.network.MarvelService
+import kurmakaeva.anastasia.data.repository.HeroRepository
 import kurmakaeva.anastasia.marvelsuperheroes.paging.FakeHeroFactory
 import org.junit.After
 import org.junit.Before
@@ -27,7 +28,7 @@ class SuperHeroesViewModelTest {
     private val dispatcher = UnconfinedTestDispatcher()
 
     private lateinit var viewModel: kurmakaeva.anastasia.presentation.ui.list.SuperHeroesViewModel
-    private lateinit var repository: kurmakaeva.anastasia.domain.repository.HeroRepository
+    private lateinit var repository: HeroRepository
 
     private val fakeHeroFactory = FakeHeroFactory()
     private val fakeHeroes = mutableListOf(
@@ -43,7 +44,7 @@ class SuperHeroesViewModelTest {
     fun setUp() {
         Dispatchers.setMain(dispatcher)
 
-        repository = kurmakaeva.anastasia.domain.repository.HeroRepository(service)
+        repository = HeroRepository(service)
     }
 
     @After

@@ -33,6 +33,8 @@ android {
 
 dependencies {
 
+    implementation project(path: ':domain')
+
     // Retrofit
 
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
