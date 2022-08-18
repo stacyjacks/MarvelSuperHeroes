@@ -25,6 +25,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import com.google.accompanist.swiperefresh.SwipeRefresh
@@ -34,9 +35,14 @@ import kotlinx.coroutines.delay
 import kurmakaeva.anastasia.domain.entities.Hero
 import kurmakaeva.anastasia.presentation.R
 import kurmakaeva.anastasia.presentation.ui.AppScaffold
+import kurmakaeva.anastasia.presentation.ui.COLUMN_NUMBER
 import kurmakaeva.anastasia.presentation.ui.EmptyState
+import kurmakaeva.anastasia.presentation.ui.HTTP
+import kurmakaeva.anastasia.presentation.ui.HTTPS
 import kurmakaeva.anastasia.presentation.ui.LoadingIndicator
+import kurmakaeva.anastasia.presentation.ui.REFRESH_DELAY
 import kurmakaeva.anastasia.presentation.ui.RetryButton
+import kurmakaeva.anastasia.presentation.ui.THUMBNAIL_PATH_XLARGE
 import kurmakaeva.anastasia.presentation.ui.theme.MarvelSuperHeroesTheme
 import kurmakaeva.anastasia.presentation.ui.theme.RedPrimary
 import kurmakaeva.anastasia.presentation.ui.theme.Secondary
@@ -63,56 +69,8 @@ class SuperHeroesFragment : Fragment() {
                                     .padding(it)
                             ) {
                                 val heroes = viewModel.superHeroes.collectAsLazyPagingItems()
-                                var isRefreshing by remember { mutableStateOf(false) }
-
-                                LaunchedEffect(isRefreshing) {
-                                    if (isRefreshing) {
-                                        delay(1000)
-                                        isRefreshing = false
-                                    }
-                                }
-
-                                SwipeRefresh(
-                                    state = rememberSwipeRefreshState(isRefreshing = isRefreshing),
-                                    onRefresh = {
-                                        isRefreshing = true
-                                        heroes.retry()
-                                    },
-                                ) {
-                                    when (heroes.loadState.refresh) {
-                                        is LoadState.NotLoading -> {
-                                            // do nothing
-                                        }
-                                        LoadState.Loading -> {
-                                            LoadingIndicator()
-                                        }
-                                        is LoadState.Error -> {
-                                            EmptyState()
-                                        }
-                                    }
-
-                                    LazyVerticalGrid(
-                                        columns = GridCells.Fixed(2),
-                                        state = rememberLazyGridState()
-                                    ) {
-                                        items(heroes.itemCount) { index ->
-                                            heroes[index]?.let { HeroItem(it) }
-                                        }
-
-                                        when (heroes.loadState.append) {
-                                            LoadState.Loading -> {
-                                                item { LoadingIndicator() }
-                                                item { LoadingIndicator() }
-                                            }
-                                            is LoadState.Error -> {
-                                                item { RetryButton(heroes = heroes) }
-                                            }
-                                            is LoadState.NotLoading -> {
-                                                // do nothing
-                                            }
-                                        }
-                                    }
-                                }
+                                
+                                SwipeRefreshList(heroes = heroes)
                             }
                         },
                         actionBarTitle = stringResource(id = R.string.main_screen_title),
@@ -125,8 +83,8 @@ class SuperHeroesFragment : Fragment() {
 
     @Composable
     fun HeroItem(hero: Hero) {
-        val httpsThumbnailPath = hero.thumbnailPath.replace("http", "https")
-        val imageUrl = httpsThumbnailPath + "/standard_xlarge." + hero.thumbnailExtension
+        val httpsThumbnailPath = hero.thumbnailPath.replace(HTTP, HTTPS)
+        val imageUrl = httpsThumbnailPath + THUMBNAIL_PATH_XLARGE + hero.thumbnailExtension
 
         ImageCard(hero = hero, imageUrl = imageUrl)
     }
@@ -172,6 +130,65 @@ class SuperHeroesFragment : Fragment() {
                     modifier = Modifier.padding(8.dp),
                     color = White
                 )
+            }
+        }
+    }
+
+    @Composable
+    fun SwipeRefreshList(heroes: LazyPagingItems<Hero>) {
+        var isRefreshing by remember { mutableStateOf(false) }
+
+        LaunchedEffect(isRefreshing) {
+            if (isRefreshing) {
+                delay(REFRESH_DELAY)
+                isRefreshing = false
+            }
+        }
+        
+        SwipeRefresh(
+            state = rememberSwipeRefreshState(isRefreshing = isRefreshing),
+            onRefresh = {
+                isRefreshing = true
+                heroes.retry()
+            },
+        ) {
+            when (heroes.loadState.refresh) {
+                is LoadState.NotLoading -> {
+                    // do nothing
+                }
+                LoadState.Loading -> {
+                    LoadingIndicator()
+                }
+                is LoadState.Error -> {
+                    EmptyState()
+                }
+            }
+            
+            ListOfHeroes(heroes = heroes)
+        }
+    }
+
+    @Composable
+    fun ListOfHeroes(heroes: LazyPagingItems<Hero>) {
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(COLUMN_NUMBER),
+            state = rememberLazyGridState()
+        ) {
+            items(heroes.itemCount) { index ->
+                heroes[index]?.let { HeroItem(it) }
+            }
+
+            when (heroes.loadState.append) {
+                LoadState.Loading -> {
+                    item { LoadingIndicator() }
+                    item { LoadingIndicator() }
+                }
+                is LoadState.Error -> {
+                    item { RetryButton(heroes = heroes) }
+                }
+                is LoadState.NotLoading -> {
+                    // do nothing
+                }
             }
         }
     }

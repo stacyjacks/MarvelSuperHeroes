@@ -112,3 +112,20 @@ fun EmptyState() {
         }
     }
 }
+
+@Composable
+fun ReadMoreButton(onClick: () -> Unit) {
+    Button(
+        onClick = onClick,
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(48.dp),
+        content = {
+            Text(text = stringResource(id = R.string.read_more))
+        },
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = RedPrimary,
+            contentColor = White
+        )
+    )
+}

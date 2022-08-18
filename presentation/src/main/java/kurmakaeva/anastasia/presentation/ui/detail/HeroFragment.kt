@@ -7,7 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
@@ -19,6 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -29,9 +35,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kurmakaeva.anastasia.domain.entities.Hero
 import kurmakaeva.anastasia.presentation.R
-import kurmakaeva.anastasia.presentation.ui.AppScaffold
-import kurmakaeva.anastasia.presentation.ui.EmptyState
-import kurmakaeva.anastasia.presentation.ui.LoadingIndicator
+import kurmakaeva.anastasia.presentation.ui.*
 import kurmakaeva.anastasia.presentation.ui.theme.RedPrimary
 import kurmakaeva.anastasia.presentation.ui.theme.White
 import javax.inject.Inject
@@ -65,44 +69,8 @@ class HeroFragment : Fragment() {
                             .background(color = RedPrimary)
                         ) {
                             val state by viewModel.hero.collectAsState()
-                            var isRefreshing by remember { mutableStateOf(false) }
-
-                            LaunchedEffect(isRefreshing) {
-                                if (isRefreshing) {
-                                    delay(1000)
-                                    isRefreshing = false
-                                }
-                            }
-
-                            SwipeRefresh(
-                                state = rememberSwipeRefreshState(isRefreshing = isRefreshing),
-                                onRefresh = {
-                                    isRefreshing = true
-                                    viewModel.retry()
-                                },
-                            ) {
-                                when (state) {
-                                    HeroViewState.Loading -> {
-                                        LoadingIndicator()
-                                    }
-                                    HeroViewState.Error -> {
-                                        EmptyState()
-                                    }
-                                    is HeroViewState.Success -> {
-                                        val httpsThumbnailPath =
-                                            (state as HeroViewState.Success).hero.thumbnailPath
-                                                .replace("http", "https")
-                                        val imageUrl = httpsThumbnailPath +
-                                                "/standard_fantastic." +
-                                                (state as HeroViewState.Success).hero.thumbnailExtension
-
-                                        HeroDetailView(
-                                            imageUrl = imageUrl,
-                                            hero = (state as HeroViewState.Success).hero
-                                        )
-                                    }
-                                }
-                            }
+                            
+                            SwipeRefreshDetail(state = state)
                         }
                     }
                 )
@@ -123,34 +91,57 @@ class HeroFragment : Fragment() {
 
             Row(modifier = Modifier.padding(8.dp)) {
                 Text(
-                    text =
-                    if (hero.description.isNotEmpty()) {
-                        hero.description
-                    } else {
-                        stringResource(id = R.string.no_description)
-                    },
+                    text = hero.description.ifEmpty { stringResource(id = R.string.no_description) },
                     fontSize = 18.sp
                 )
             }
 
             Row(modifier = Modifier.padding(8.dp)) {
-                Button(
-                    onClick = {
-                        val resourceUrl = hero.urls.first().url.replace("http", "https")
-                        val viewInBrowserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(resourceUrl))
-                        startActivity(viewInBrowserIntent)
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(48.dp),
-                    content = {
-                        Text(text = stringResource(id = R.string.read_more))
-                    },
-                    colors = ButtonDefaults.buttonColors(
-                        backgroundColor = RedPrimary,
-                        contentColor = White
-                    )
+                val viewInBrowserIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(hero.urls.first().url.replace(HTTP, HTTPS))
                 )
+
+                ReadMoreButton { startActivity(viewInBrowserIntent) }
+            }
+        }
+    }
+    
+    @Composable
+    fun SwipeRefreshDetail(state: HeroViewState) {
+        var isRefreshing by remember { mutableStateOf(false) }
+
+        LaunchedEffect(isRefreshing) {
+            if (isRefreshing) {
+                delay(REFRESH_DELAY)
+                isRefreshing = false
+            }
+        }
+
+        SwipeRefresh(
+            state = rememberSwipeRefreshState(isRefreshing = isRefreshing),
+            onRefresh = {
+                isRefreshing = true
+                viewModel.retry()
+            },
+        ) {
+            when (state) {
+                HeroViewState.Loading -> {
+                    LoadingIndicator()
+                }
+                HeroViewState.Error -> {
+                    EmptyState()
+                }
+                is HeroViewState.Success -> {
+                    val httpsThumbnailPath = state.hero.thumbnailPath.replace(HTTP, HTTPS)
+                    val imageUrl = httpsThumbnailPath + IMAGE_PATH_FANTASTIC +
+                            state.hero.thumbnailExtension
+
+                    HeroDetailView(
+                        imageUrl = imageUrl,
+                        hero = state.hero
+                    )
+                }
             }
         }
     }
