@@ -1,4 +1,4 @@
-package kurmakaeva.anastasia.presentation.ui
+package kurmakaeva.anastasia.common
 
 const val HTTP = "http"
 const val HTTPS = "https"

@@ -1,6 +1,5 @@
 package kurmakaeva.anastasia.data.network
 
-import kurmakaeva.anastasia.data.network.dtos.HeroDTO
 import kurmakaeva.anastasia.data.network.dtos.ResponseDTO
 import retrofit2.http.GET
 import retrofit2.http.Path

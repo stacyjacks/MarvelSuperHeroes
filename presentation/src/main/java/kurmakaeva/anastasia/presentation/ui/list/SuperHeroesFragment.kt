@@ -35,14 +35,12 @@ import kotlinx.coroutines.delay
 import kurmakaeva.anastasia.domain.entities.Hero
 import kurmakaeva.anastasia.presentation.R
 import kurmakaeva.anastasia.presentation.ui.AppScaffold
-import kurmakaeva.anastasia.presentation.ui.COLUMN_NUMBER
+import kurmakaeva.anastasia.common.COLUMN_NUMBER
 import kurmakaeva.anastasia.presentation.ui.EmptyState
-import kurmakaeva.anastasia.presentation.ui.HTTP
-import kurmakaeva.anastasia.presentation.ui.HTTPS
 import kurmakaeva.anastasia.presentation.ui.LoadingIndicator
-import kurmakaeva.anastasia.presentation.ui.REFRESH_DELAY
+import kurmakaeva.anastasia.common.REFRESH_DELAY
 import kurmakaeva.anastasia.presentation.ui.RetryButton
-import kurmakaeva.anastasia.presentation.ui.THUMBNAIL_PATH_XLARGE
+import kurmakaeva.anastasia.common.THUMBNAIL_PATH_XLARGE
 import kurmakaeva.anastasia.presentation.ui.theme.MarvelSuperHeroesTheme
 import kurmakaeva.anastasia.presentation.ui.theme.RedPrimary
 import kurmakaeva.anastasia.presentation.ui.theme.Secondary
@@ -83,8 +81,7 @@ class SuperHeroesFragment : Fragment() {
 
     @Composable
     fun HeroItem(hero: Hero) {
-        val httpsThumbnailPath = hero.thumbnailPath.replace(HTTP, HTTPS)
-        val imageUrl = httpsThumbnailPath + THUMBNAIL_PATH_XLARGE + hero.thumbnailExtension
+        val imageUrl = hero.thumbnailPath + THUMBNAIL_PATH_XLARGE + hero.thumbnailExtension
 
         ImageCard(hero = hero, imageUrl = imageUrl)
     }

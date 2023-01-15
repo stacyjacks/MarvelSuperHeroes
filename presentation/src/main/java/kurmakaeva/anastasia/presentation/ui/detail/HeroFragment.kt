@@ -42,11 +42,9 @@ import kurmakaeva.anastasia.domain.entities.Hero
 import kurmakaeva.anastasia.presentation.R
 import kurmakaeva.anastasia.presentation.ui.AppScaffold
 import kurmakaeva.anastasia.presentation.ui.EmptyState
-import kurmakaeva.anastasia.presentation.ui.HTTP
-import kurmakaeva.anastasia.presentation.ui.HTTPS
-import kurmakaeva.anastasia.presentation.ui.IMAGE_PATH_FANTASTIC
+import kurmakaeva.anastasia.common.IMAGE_PATH_FANTASTIC
 import kurmakaeva.anastasia.presentation.ui.LoadingIndicator
-import kurmakaeva.anastasia.presentation.ui.REFRESH_DELAY
+import kurmakaeva.anastasia.common.REFRESH_DELAY
 import kurmakaeva.anastasia.presentation.ui.ReadMoreButton
 import kurmakaeva.anastasia.presentation.ui.theme.RedPrimary
 import javax.inject.Inject
@@ -110,7 +108,7 @@ class HeroFragment : Fragment() {
             Row(modifier = Modifier.padding(8.dp)) {
                 val viewInBrowserIntent = Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse(hero.urls.first().url.replace(HTTP, HTTPS))
+                    Uri.parse(hero.urls.first().url)
                 )
 
                 ReadMoreButton { startActivity(viewInBrowserIntent) }
@@ -144,8 +142,7 @@ class HeroFragment : Fragment() {
                     EmptyState()
                 }
                 is HeroViewState.Success -> {
-                    val httpsThumbnailPath = state.hero.thumbnailPath.replace(HTTP, HTTPS)
-                    val imageUrl = httpsThumbnailPath + IMAGE_PATH_FANTASTIC +
+                    val imageUrl = state.hero.thumbnailPath + IMAGE_PATH_FANTASTIC +
                             state.hero.thumbnailExtension
 
                     HeroDetailView(
