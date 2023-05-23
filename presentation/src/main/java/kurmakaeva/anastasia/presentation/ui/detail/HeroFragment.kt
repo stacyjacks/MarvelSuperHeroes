@@ -6,6 +6,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.MutableTransitionState
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,6 +33,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
@@ -38,6 +48,7 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
+import kurmakaeva.anastasia.common.ANIMATION_DURATION
 import kurmakaeva.anastasia.domain.entities.Hero
 import kurmakaeva.anastasia.presentation.R
 import kurmakaeva.anastasia.presentation.ui.AppScaffold
@@ -116,6 +127,7 @@ class HeroFragment : Fragment() {
         }
     }
     
+    @OptIn(ExperimentalAnimationApi::class)
     @Composable
     fun SwipeRefreshDetail(state: HeroViewState) {
         var isRefreshing by remember { mutableStateOf(false) }
@@ -142,13 +154,30 @@ class HeroFragment : Fragment() {
                     EmptyState()
                 }
                 is HeroViewState.Success -> {
+                    val visible = remember {
+                        MutableTransitionState(false).apply {
+                            targetState = true
+                        }
+                    }
                     val imageUrl = state.hero.thumbnailPath + IMAGE_PATH_FANTASTIC +
                             state.hero.thumbnailExtension
 
-                    HeroDetailView(
-                        imageUrl = imageUrl,
-                        hero = state.hero
-                    )
+                    AnimatedVisibility(
+                        visibleState = visible,
+                        enter =
+                        slideInHorizontally(
+                            animationSpec = tween(ANIMATION_DURATION)
+                        ) + scaleIn(
+                            animationSpec = tween(ANIMATION_DURATION, 100, FastOutSlowInEasing),
+                            initialScale = 0.5f,
+                            transformOrigin = TransformOrigin.Center
+                        ),
+                        exit = slideOutHorizontally() + scaleOut()) {
+                        HeroDetailView(
+                            imageUrl = imageUrl,
+                            hero = state.hero
+                        )
+                    }
                 }
             }
         }
