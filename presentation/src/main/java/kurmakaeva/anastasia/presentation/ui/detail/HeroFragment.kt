@@ -50,12 +50,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kurmakaeva.anastasia.common.ANIMATION_DURATION
 import kurmakaeva.anastasia.domain.entities.Hero
-import kurmakaeva.anastasia.presentation.R
 import kurmakaeva.anastasia.presentation.ui.AppScaffold
 import kurmakaeva.anastasia.presentation.ui.EmptyState
 import kurmakaeva.anastasia.common.IMAGE_PATH_FANTASTIC
 import kurmakaeva.anastasia.presentation.ui.LoadingIndicator
 import kurmakaeva.anastasia.common.REFRESH_DELAY
+import kurmakaeva.anastasia.presentation.R
 import kurmakaeva.anastasia.presentation.ui.ReadMoreButton
 import kurmakaeva.anastasia.presentation.ui.theme.RedPrimary
 import javax.inject.Inject

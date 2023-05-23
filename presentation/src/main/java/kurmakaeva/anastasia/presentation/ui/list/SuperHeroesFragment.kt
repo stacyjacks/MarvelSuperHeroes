@@ -33,7 +33,6 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kurmakaeva.anastasia.domain.entities.Hero
-import kurmakaeva.anastasia.presentation.R
 import kurmakaeva.anastasia.presentation.ui.AppScaffold
 import kurmakaeva.anastasia.common.COLUMN_NUMBER
 import kurmakaeva.anastasia.presentation.ui.EmptyState
@@ -41,6 +40,7 @@ import kurmakaeva.anastasia.presentation.ui.LoadingIndicator
 import kurmakaeva.anastasia.common.REFRESH_DELAY
 import kurmakaeva.anastasia.presentation.ui.RetryButton
 import kurmakaeva.anastasia.common.THUMBNAIL_PATH_XLARGE
+import kurmakaeva.anastasia.presentation.R
 import kurmakaeva.anastasia.presentation.ui.theme.MarvelSuperHeroesTheme
 import kurmakaeva.anastasia.presentation.ui.theme.RedPrimary
 import kurmakaeva.anastasia.presentation.ui.theme.Secondary

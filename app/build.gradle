@@ -6,12 +6,13 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    namespace 'kurmakaeva.anastasia.marvelsuperheroes'
+    compileSdk 33
 
     defaultConfig {
         applicationId "kurmakaeva.anastasia.marvelsuperheroes"
         minSdk 24
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -25,11 +26,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '11'
+        jvmTarget = '17'
     }
 }
 
@@ -78,7 +79,7 @@ dependencies {
 
     testImplementation "org.robolectric:robolectric:$robolectric_version"
 
-    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+    testImplementation 'androidx.arch.core:core-testing:2.2.0'
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
     testImplementation "androidx.test:core-ktx:$androidx_test_core_version"
