@@ -29,7 +29,7 @@ class HeroViewModel @AssistedInject constructor(
         getHero()
     }
 
-    private fun getHero() {
+    fun getHero() {
         viewModelScope.launch {
             runCatching {
                 repository.loadSingleCharacter(assistedInjection.characterId)
